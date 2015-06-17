@@ -139,12 +139,21 @@
 
 - (void)adjustContentSize {
     if (self.orientation == CSLinearLayoutViewOrientationHorizontal) {
-        CGFloat contentWidth = MAX(self.frame.size.width, self.layoutOffset);
+        CGFloat contentWidth = self.layoutOffset;
         self.contentSize = CGSizeMake(contentWidth, self.frame.size.height);
     } else {
         CGFloat contentHeight = MAX(self.frame.size.height, self.layoutOffset);
         self.contentSize = CGSizeMake(self.frame.size.width, contentHeight);
     }
+    NSLog(@"conentsize-width: %f", self.contentSize.width);
+    [self invalidateIntrinsicContentSize];
+}
+
+- (CGSize) intrinsicContentSize
+{
+    NSLog(@"was asked for intrinsic conentsize. width: %f", self.contentSize.width);
+    
+    return self.contentSize;
 }
 
 - (CGFloat)layoutOffset {
